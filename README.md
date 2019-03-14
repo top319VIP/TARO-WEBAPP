@@ -1,6 +1,6 @@
 基于Taro (Redux+TypeScript+Sass+Http开发代理) 构建H5
 
-##构建
+## 构建
 安装 Taro 开发工具 `@tarojs/cli`
 使用 npm 或者 yarn 全局安装，或者直接使用npx
 ```javascript
@@ -12,7 +12,7 @@
     $ cnpm install -g @tarojs/cli
 ```
 
-##启动
+## 启动
  ```javascript
     npm dev:h5
     yarn dev:h5
