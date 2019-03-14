@@ -1,5 +1,15 @@
 
 import Taro from '@tarojs/taro';
+
+interface Http {
+    requestConfig: {
+        method: String,
+        body: undefined,
+        credentials: String,
+        Authorization: undefined | String,
+        header: Object
+    }
+}
 class Http {
     constructor() {
         this.requestConfig = {
