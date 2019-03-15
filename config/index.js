@@ -1,6 +1,6 @@
 const config = {
-  projectName: 'myApp',
-  date: '2019-3-8',
+  projectName: 'TaroApp',
+  date: '2019-3-15',
   designWidth: 750,
   deviceRatio: {
     '640': 2.34 / 2,
@@ -96,9 +96,8 @@ const config = {
       basename: '/dist',       // 路由基准路径的配置
       customRoutes: {
         '/pages/index/index': '/index',
-        '/pages/help/index': '/help'
+        '/pages/index2/index': '/index2'
       }
-
     }
   }
 }

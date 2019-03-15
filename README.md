@@ -1,4 +1,4 @@
-基于Taro (Redux+TypeScript+Sass+Http开发代理) 构建H5
+基于Taro (Redux+Sass+Http开发代理) 构建H5
 
 ## 构建
 安装 Taro 开发工具 `@tarojs/cli`

@@ -1,6 +1,5 @@
 import { ADD, MINUS } from '../constants/counter'
 
-// 定义初始状态
 const INITIAL_STATE = {
   num: 0
 }

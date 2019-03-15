@@ -1,7 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-// 引入需要的中间件
 import thunkMiddleware from 'redux-thunk'
-// 引入根reducers
 import rootReducer from '../reducers'
 
 const composeEnhancers =
@@ -24,7 +22,6 @@ const enhancer = composeEnhancers(
   // other store enhancers if any
 )
 
-// 创建 store
 export default function configStore () {
   const store = createStore(rootReducer, enhancer)
   return store

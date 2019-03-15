@@ -1,7 +1,5 @@
 import '@tarojs/async-await'
-import Taro, { Component, Config } from '@tarojs/taro'
-// 首先，定义好store(store/index.ts文件)，然后在app.js中引入
-// 使用@tarojs/redux中提供的Provider组件将前面写好的store接入应用中，这样一来，被Provider包裹的页面都能访问到应用的store
+import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 
 import Index from './pages/index'
@@ -20,17 +18,10 @@ const store = configStore()
 
 class App extends Component {
 
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
-  config: Config = {
+  config = {
     pages: [
       'pages/index/index',
-      'pages/help/index',
+      'pages/index2/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -54,7 +45,6 @@ class App extends Component {
   // 请勿修改此函数
   render () {
     return (
-      // Provider 组件使组件层级中的 connect() 方法都能够获得 Redux store
       <Provider store={store}>
         <Index />
       </Provider>
