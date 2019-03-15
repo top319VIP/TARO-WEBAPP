@@ -10,6 +10,7 @@ interface Http {
         header: Object
     }
 }
+
 class Http {
     constructor() {
         this.requestConfig = {
@@ -33,7 +34,12 @@ class Http {
             method,
             header,
             success(res: Object) {
-                fn(res['data'])
+                if (typeof res['data'] == 'object') {
+                    fn(res['data'])
+                } else {
+                    fn(res)
+                }
+
             },
             error(res: Object) {
                 fn(res)
@@ -43,15 +49,40 @@ class Http {
         if (method === 'OPTIONS') {
             option.method = 'POST';
         }
-        return Taro.request(option)
+
+        return Taro.request.call(this, option)
     }
 
-    get(url: string, data: Object | Function, fn?: Function): Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'GET', data, fn) }
-    post(url: string, data: Object | Function, fn?: Function): Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'POST', data, fn) }
-    upload(url: string, data: Object | Function, fn?: Function): Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'OPTIONS', data, fn) }
+
+
+    get(url: string, data: Object | Function, fn?: (this: void, res: Object) => void): Object {
+        if (fn == undefined && typeof data == 'function') {
+            return this.handle(url, 'GET', {}, data)
+        } else if (typeof data == 'object' && typeof fn == 'function') {
+            return this.handle(url, 'GET', data, fn)
+        } else {
+            return {
+                errMsg: '入参错误！'
+            }
+        }
+    }
+
+    post(url: string, data: Object | Function, fn?: (this: void, res: Object) => void): Object {
+        if (fn == undefined && typeof data == 'function') {
+            return this.handle(url, 'POST', {}, data)
+        } else if (typeof data == 'object' && typeof fn == 'function') {
+            return this.handle(url, 'POST', data, fn)
+        } else {
+            return {
+                errMsg: '入参错误！'
+            }
+        }
+    }
+
+    upload(url: string, data: Object, fn: (this: void, res: Object) => void): Object { return this.handle(url, 'OPTIONS', data, fn) }
 
     // 修改请求头
-    setRequestHeader(object) {
+    setRequestHeader(object: Object) {
         const isObj = typeof object === 'object'
         if (isObj) {
             if (object instanceof Array) {
