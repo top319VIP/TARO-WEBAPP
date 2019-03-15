@@ -20,7 +20,7 @@ class Http {
             isShowLoading: false,
             url,
             data,
-            method: method,
+            method,
             header,
             success(res) {
                 fn(res.data)

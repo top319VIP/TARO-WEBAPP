@@ -3,17 +3,17 @@ import Taro from '@tarojs/taro';
 
 interface Http {
     requestConfig: {
-        method: String,
+        method: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT' | undefined,
         body: undefined,
-        credentials: String,
-        Authorization: undefined | String,
+        credentials: string,
+        Authorization: undefined | string,
         header: Object
     }
 }
 class Http {
     constructor() {
         this.requestConfig = {
-            method: "get",
+            method: "GET",
             body: undefined,
             credentials: "include",
             Authorization: undefined,
@@ -23,32 +23,32 @@ class Http {
             }
         }
     }
-    handle(url, method, data = {}, fn) {
+    handle(url: string, method: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT' | undefined, data: Object | Function = {}, fn: Function):Object {
         let header = { ...{}, ...this.requestConfig.header }
-        typeof data === "function" ? fn = data : !1;
+        interface option { }
         const option = {
             isShowLoading: false,
             url,
             data,
-            method: method,
+            method,
             header,
-            success(res) {
-                fn(res.data)
+            success(res: Object) {
+                fn(res['data'])
             },
-            error(res) {
+            error(res: Object) {
                 fn(res)
             }
         }
 
-        if (method === 'upload') {
-            option.method = 'post';
+        if (method === 'OPTIONS') {
+            option.method = 'POST';
         }
         return Taro.request(option)
     }
 
-    get(url, data, fn) { return this.handle(url, 'get', data, fn) }
-    post(url, data, fn) { return this.handle(url, 'post', data, fn) }
-    upload(url, data, fn) { return this.handle(url, 'upload', data, fn) }
+    get(url: string, data: Object | Function, fn: Function):Object { debugger;typeof data === "function" ? fn = data : !1; return this.handle(url, 'GET', data, fn) }
+    post(url: string, data: Object | Function, fn: Function):Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'POST', data, fn) }
+    upload(url: string, data: Object | Function, fn: Function):Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'OPTIONS', data, fn) }
 
     // 修改请求头
     setRequestHeader(object) {
@@ -65,7 +65,7 @@ class Http {
         }
     }
     // 获取某个cookie
-    getCookie(key) {
+    getCookie(key: undefined | string): Object | Boolean {
         var cArray = document.cookie.split(';'),
             newObj = key ? !1 : {};
         for (var i = 0, e; (e = cArray[i]) != undefined; i++) {
@@ -83,12 +83,12 @@ class Http {
     }
 
     // 获取URL(某个或所有)参数
-    getQueryValue(name) {
+    getQueryValue(name: undefined | string): null | string | Object {
         let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        let subString = location.href.split('?')[1] || '';
-        let r = subString.match(reg);
+        let substring = location.href.split('?')[1] || '';
+        let r = substring.match(reg);
         let newObj = {};
-        let urlArr = subString.length ? subString.replace(/\=|\&/g, ',').split(',') : [];
+        let urlArr = substring.length ? substring.replace(/\=|\&/g, ',').split(',') : [];
         if (name) {
             if (r != null) return decodeURI(r[2]); return null;
         } else {
