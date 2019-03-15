@@ -23,7 +23,7 @@ class Http {
             }
         }
     }
-    handle(url: string, method: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT' | undefined, data: Object | Function = {}, fn: Function):Object {
+    handle(url: string, method: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT' | undefined, data: Object | Function = {}, fn: Function): Object {
         let header = { ...{}, ...this.requestConfig.header }
         interface option { }
         const option = {
@@ -46,9 +46,9 @@ class Http {
         return Taro.request(option)
     }
 
-    get(url: string, data: Object | Function, fn: Function):Object { debugger;typeof data === "function" ? fn = data : !1; return this.handle(url, 'GET', data, fn) }
-    post(url: string, data: Object | Function, fn: Function):Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'POST', data, fn) }
-    upload(url: string, data: Object | Function, fn: Function):Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'OPTIONS', data, fn) }
+    get(url: string, data: Object | Function, fn?: Function): Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'GET', data, fn) }
+    post(url: string, data: Object | Function, fn?: Function): Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'POST', data, fn) }
+    upload(url: string, data: Object | Function, fn?: Function): Object { typeof data === "function" ? fn = data : !1; return this.handle(url, 'OPTIONS', data, fn) }
 
     // 修改请求头
     setRequestHeader(object) {
